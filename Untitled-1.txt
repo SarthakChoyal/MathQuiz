@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GPT-3 Chat Website</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+      h1 {
+        text-align: center;
+        padding: 50px 0;
+      }
+      #input-form {
+        display: flex;
+        justify-content: center;
+        padding: 50px 0;
+      }
+      input[type="text"] {
+        width: 50%;
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px 0 0 5px;
+        border: none;
+        border-right: 1px solid #ccc;
+      }
+      button[type="submit"] {
+        width: 10%;
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 0 5px 5px 0;
+        border: none;
+        background-color: blue;
+        color: #fff;
+      }
+      #output-box {
+        width: 80%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GPT-3 Chat Website</h1>
+    <div id="input-form">
+      <form onsubmit="submitForm(event)">
+        <input type="text" id="input-text" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div id="output-box">
+      <p id="output-text"></p>
+    </div>
+
+    <script>
+      async function submitForm(event) {
+        event.preventDefault();
+        const inputText = document.getElementById("input-text").value;
+        const API_KEY = "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";
+        const API_ENDPOINT = "https://api.openai.com/v1/engines/davinci/jobs";
+        const response = await axios.post(API_ENDPOINT, {
+          prompt: inputText,
+          max_tokens: 100,
+          n: 1,
+          stop: "",
+          temperature: 0.5,
+        }, {
+          headers: {
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          }
+        });
+        const outputText = response.data.choices[0].text;
+        document.getElementById("output-text").innerText = outputText;
+      }
+    </script>
+  </body>
+</html>

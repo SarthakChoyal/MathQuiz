@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <title>SarthakGPT</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: black;
+    }
+
+    h1 {
+      color: cyan;
+    }
+
+    #input-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    #user-input {
+      width: 500px;
+      height: 50px;
+      font-size: 16px;
+      padding: 5px;
+      margin-right: 10px;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+    }
+
+    #submit-button {
+      background-color: #0077C9;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: 1px solid cyan;
+      cursor: pointer;
+    }
+
+    #output-area {
+      margin-top: 20px;
+      text-align: left;
+      justify-content: center;
+      background-color: whitesmoke;
+    }
+
+    #chatgpt-response {
+      width: 500px;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid cyan;
+      overflow-y: scroll;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Chat with SarthakGPT</h1>
+  <div id="input-area">
+    <textarea id="user-input"></textarea>
+    <button id="submit-button">↩</button>
+  </div>
+  <div id="output-area">
+    <p id="chatgpt-response"></p>
+  </div>
+
+  <script>
+    document.getElementById("submit-button").addEventListener("click", function() {
+          // Get the user's input
+          var userInput = document.getElementById("user-input").value;
+          // Replace YOUR_API_KEY with your own OpenAI API key
+          var apiKey = "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";
+          var apiUrl = "https://api.openai.com/v1/engines/davinci/jobs";
+          // Use the Fetch API to send the user's input to the OpenAI API
+          fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + apiKey
+              },
+              body: JSON.stringify({
+                prompt: userInput,
+                max_tokens: 100
+              })
+            })
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+                //
